@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: coupang-keywords
+    name: coupang-keywords-api
     env: python
     buildCommand: ""
     startCommand: "gunicorn app:app"
