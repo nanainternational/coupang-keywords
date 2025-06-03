@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>쿠팡 연관검색어 추출기</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    #result { margin-top: 20px; }
+    .badge { display: inline-block; padding: 5px 10px; margin: 5px; background: #ff1493; color: white; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <h1>🔍 쿠팡 연관검색어 추출기</h1>
+  <input type="text" id="keyword" placeholder="검색어 입력" />
+  <button onclick="search()">검색</button>
+  <div id="result"></div>
+
+  <script>
+    async function search() {
+      const keyword = document.getElementById("keyword").value;
+      const res = await fetch(`/related?q=${encodeURIComponent(keyword)}`);
+      const data = await res.json();
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = `<h3>'${data.keyword}' 연관검색어</h3>` +
+        data.related.map(k => `<span class="badge">${k}</span>`).join("");
+    }
+  </script>
+</body>
+</html>
